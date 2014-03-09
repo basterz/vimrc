@@ -7,10 +7,7 @@ filetype plugin on
 
 call pathogen#infect()
 
-let mapleader = ","
-
 set nocompatible
-"set foldmethod=syntax
 set ignorecase
 set hlsearch
 set autoindent
@@ -37,10 +34,11 @@ set visualbell
 
 set cc=80
 
-" Color Theme
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" COLOR
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set background=dark
 colorscheme solarized
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                           My variables
@@ -58,7 +56,7 @@ augroup HTMLCommands
   " Auto format file
   autocmd BufRead,BufWritePre *.html normal gg=G
   " Comments will be with pres '//'
-  autocmd Filetype html nnoremap <leader>c I <!--<esc>A--><esc>
+  autocmd Filetype html nnoremap <buffer> <leader>c I <!--<esc>A--><esc>
 augroup END
 
  " JavaScript
@@ -68,7 +66,7 @@ augroup JavaScriptCommands
   " Auto format file
   autocmd BufRead,BufWritePre *.js normal gg=G
   " Comment Javascript
-  autocmd Filetype javascript nnoremap <leader>c I//<esc>
+  autocmd Filetype javascript nnoremap <buffer>  <leader>c I//<esc>
 augroup END
 
 " Ruby
@@ -86,13 +84,14 @@ augroup PHPCommands
   autocmd!
   autocmd BufRead,BufNewFile *.php setfiletype php 
   " Auto format file
-  autocmd BufRead,BufWritePre *.js normal gg=G
+  autocmd BufRead,BufWritePre .php normal gg=G
   " Comment Javascript
 augroup END
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                           My Shortcuts 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
+
 " Insert newline without entering insert mode
 " Source:
 " http://vim.wikia.com/wiki/Insert_newline_without_entering_insert_mode 
@@ -100,19 +99,40 @@ nmap <S-Enter> O<Esc>
 nmap <CR> o<Esc>
 
 " Show syntax highlighting groups for word under cursor
-nmap <C-S-P> :call <SID>SynStack()<CR>
 function! <SID>SynStack()
   if !exists("*synstack")
     return
   endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
+endfunction
+nmap <C-S-P> :call <SID>SynStack()<CR>
 
 noremap <left> <nop>
 noremap <right> <nop>
 noremap <up> <nop>
 noremap <down> <nop>
 
+onoremap p i(
+
+" Autocomplete
+function! InsertTabWrapper()
+  let col = col(".") - 1
+  if !col || getline(".")[col - 1] !~ '\k'
+    return "\<tab>"
+  else 
+    return "\<c-n>"
+endfunction
+inoremap <TAB> <C-r>=InsertTabWrapper()<CR>
+" inoremap <Nul> <C-n>
+inoremap <S-TAB> <C-p>
+
+" Reg exp
+nnoremap / /\v
+vnoremap / /\v
+nnoremap ? ?\v
+nnoremap ? ?\v
+
+nnoremap <leader><space> :noh<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                           NERDTree 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
