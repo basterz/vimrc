@@ -1,3 +1,6 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" BASIC EDITION SETTINGS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax on
 syntax enable
 
@@ -35,21 +38,23 @@ set visualbell
 set cc=80
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" COLOR
+"                           COLOR 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set background=dark
 colorscheme solarized
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                           My variables
+"                           MY VARIABLES
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader = ','
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                           Auto commands
+"                           AUTO COMMANDS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " HTML 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup HTMLCommands
   autocmd!
   autocmd BufRead,BufNewFile *.html setfiletype html
@@ -59,7 +64,9 @@ augroup HTMLCommands
   autocmd Filetype html nnoremap <buffer> <leader>c I <!--<esc>A--><esc>
 augroup END
 
- " JavaScript
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" JavaScript
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup JavaScriptCommands
   autocmd!
   autocmd BufRead,BufNewFile *.js setfiletype javascript
@@ -69,7 +76,9 @@ augroup JavaScriptCommands
   autocmd Filetype javascript nnoremap <buffer>  <leader>c I//<esc>
 augroup END
 
-" Ruby
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RUBY
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup RubyCommands
   autocmd!
   set cursorline
@@ -79,7 +88,9 @@ augroup RubyCommands
   " Comment Javascript
 augroup END
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PHP
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup PHPCommands
   autocmd!
   autocmd BufRead,BufNewFile *.php setfiletype php 
@@ -89,7 +100,7 @@ augroup PHPCommands
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                           My Shortcuts 
+"                           MY SHORTCUTS 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Insert newline without entering insert mode
@@ -97,6 +108,27 @@ augroup END
 " http://vim.wikia.com/wiki/Insert_newline_without_entering_insert_mode 
 nmap <S-Enter> O<Esc>
 nmap <CR> o<Esc>
+
+" Remove arrows from normal mode.
+noremap <left> <nop>
+noremap <right> <nop>
+noremap <up> <nop>
+noremap <down> <nop>
+
+" Make shortcut command for parentheses. Example ci( will be equal to cp
+onoremap p i(
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" REG EXP
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap / /\v
+vnoremap / /\v
+nnoremap ? ?\v
+nnoremap ? ?\v
+
+" Remove highlighting
+" ,<space> execute into normal mode command :noh
+nnoremap <leader><space> :noh<CR>
 
 " Show syntax highlighting groups for word under cursor
 function! <SID>SynStack()
@@ -107,14 +139,11 @@ function! <SID>SynStack()
 endfunction
 nmap <C-S-P> :call <SID>SynStack()<CR>
 
-noremap <left> <nop>
-noremap <right> <nop>
-noremap <up> <nop>
-noremap <down> <nop>
-
-onoremap p i(
-
-" Autocomplete
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" AUTOCOMPLETE
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Indent if we're at the beginning of a line. Else, do completion.
+" Source: https://github.com/garybernhardt/dotfiles/blob/master/.vimrc
 function! InsertTabWrapper()
   let col = col(".") - 1
   if !col || getline(".")[col - 1] !~ '\k'
@@ -126,13 +155,6 @@ inoremap <TAB> <C-r>=InsertTabWrapper()<CR>
 " inoremap <Nul> <C-n>
 inoremap <S-TAB> <C-p>
 
-" Reg exp
-nnoremap / /\v
-vnoremap / /\v
-nnoremap ? ?\v
-nnoremap ? ?\v
-
-nnoremap <leader><space> :noh<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                           NERDTree 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
